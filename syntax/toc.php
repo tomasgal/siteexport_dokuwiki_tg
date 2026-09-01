@@ -294,7 +294,7 @@ class syntax_plugin_siteexport_toc extends DokuWiki_Syntax_Plugin {
         // Render Title
         $default = $renderer->_simpleTitle($id);
         $exists = false; $isImage = false; $linktype = null;
-        // Local modification 2026-09-01: ID is already resolved in render(); only test existence here.
+        // Local modification 2026-09-01 (Tomas Gal fork): ID is already resolved in render(); only test existence here.
         $exists = page_exists(preg_replace('/#.*$/', '', $id));
         $name = $renderer->_getLinkTitle($name, $default, $isImage, $id, $linktype);
 

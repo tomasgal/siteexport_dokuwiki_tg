@@ -866,7 +866,7 @@ class action_plugin_siteexport_ajax extends DokuWiki_Action_Plugin
 
                 $newDepth = str_repeat('../', count(explode('/', $fileName))-1);
                 $this->__rebuildDataForNormalFiles($DATA, $PARAMS);
-                // Local modification 2026-09-01: flatten internal links for DokuWiki userewrite=2 static exports.
+                // Local modification 2026-09-01 (Tomas Gal fork): flatten internal links for DokuWiki userewrite=2 static exports.
                 $DATA[2] = basename($DATA[2]) . '.' . $this->functions->settings->fileType;
 
                 $this->functions->debug->message("This is doku.php file with addParams", array($DATA, $ID, $fileName, $newDepth, $newAdditionalParameters), 2);
