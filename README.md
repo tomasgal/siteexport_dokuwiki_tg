@@ -16,6 +16,32 @@ The purpose of this fork is to preserve a working SiteExport version for this le
 
 Explore the [interactive GitDiagram architecture map](https://gitdiagram.com/tomasgal/siteexport_dokuwiki_tg) for an overview of DokuWiki entry points, export processing, archive delivery, and PDF rendering.
 
+### Runtime overview (Mermaid)
+
+The diagram below summarizes the export paths represented in the source. DokuWiki entry points dispatch requests to the export controller, which collects pages and assets, resolves export paths, and writes a cached archive. PDF conversion is conditional on the optional mPDF/dw2pdf integration.
+
+```mermaid
+flowchart LR
+    UI["DokuWiki UI / export syntax"] --> ENTRY["Entry points<br/>admin.php, syntax/*, action/startup.php"]
+    ENTRY --> AJAX["Export controller<br/>action/ajax.php"]
+
+    AJAX --> HELP["IDs, paths and settings<br/>inc/functions.php"]
+    AJAX --> HTTP["Page / asset fetching<br/>inc/httpproxy.php"]
+    AJAX --> TOC["TOC and aggregation<br/>inc/toc.php, syntax/toc.php"]
+
+    HELP --> WRITER["Cache and ZIP writing<br/>inc/filewriter.php"]
+    HTTP --> WRITER
+    TOC --> WRITER
+
+    WRITER --> ZIP[("Cached export archive")]
+    WRITER -.->|"optional PDF mode"| PDF["PDF conversion<br/>inc/pdfgenerator.php"]
+    PDF -.-> WRITER
+    ZIP --> DL["Export download"]
+    ZIP -.->|"single-PDF delivery path"| SENDFILE["action/sendfile.php"]
+```
+
+**Fork-specific compatibility points:** `syntax/toc.php` avoids resolving an already resolved TOC page ID a second time; `action/ajax.php` corrects link rewriting for flat exports with `userewrite=2`. These are targeted changes to the upstream export pipeline, not independent services. The dashed PDF path is optional and depends on the runtime's PDF support. The diagram describes the code structure; it is not a verified end-to-end test of every export mode.
+
 The diagram is automatically generated and may omit implementation details. The fork-specific compatibility changes are documented in [Local compatibility fixes](#local-compatibility-fixes) below.
 
 ## Local compatibility fixes
