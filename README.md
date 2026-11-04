@@ -42,7 +42,7 @@ flowchart LR
 
 **Fork-specific compatibility points:** `syntax/toc.php` avoids resolving an already resolved TOC page ID a second time; `action/ajax.php` corrects link rewriting for flat exports with `userewrite=2`. These are targeted changes to the upstream export pipeline, not independent services. The dashed PDF path is optional and depends on the runtime's PDF support. The diagram describes the code structure; it is not a verified end-to-end test of every export mode.
 
-The diagram is automatically generated and may omit implementation details. The fork-specific compatibility changes are documented in [Local compatibility fixes](#local-compatibility-fixes) below.
+The linked GitDiagram is automatically generated and may omit implementation details; the Mermaid overview above is a curated summary of the inspected source. The fork-specific compatibility changes are documented in [Local compatibility fixes](#local-compatibility-fixes) below.
 
 ## Local compatibility fixes
 
