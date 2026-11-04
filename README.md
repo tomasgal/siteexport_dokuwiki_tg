@@ -12,6 +12,12 @@ This repository is a compatibility fork of the DokuWiki **SiteExport** plugin by
 
 The purpose of this fork is to preserve a working SiteExport version for this legacy DokuWiki/PHP stack.
 
+## Architecture
+
+Explore the [interactive GitDiagram architecture map](https://gitdiagram.com/tomasgal/siteexport_dokuwiki_tg) for an overview of DokuWiki entry points, export processing, archive delivery, and PDF rendering.
+
+The diagram is automatically generated and may omit implementation details. The fork-specific compatibility changes are documented in [Local compatibility fixes](#local-compatibility-fixes) below.
+
 ## Local compatibility fixes
 
 Two source files differ from the upstream `2019-02-11` release:
